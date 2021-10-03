@@ -95,14 +95,15 @@ export default function Login() {
             <Tr>
               <Th>URL</Th>
               <Th>Short URL</Th>
-              <Th>DELETE</Th>
               <Th>CLICK</Th>
+              <Th>DELETE</Th>
             </Tr>
           </Thead>
           <Tbody>
             <Tr>
               <Td>inches</Td>
               <Td>millimetres (mm)</Td>
+              <Td>0</Td>
               <Td>
                 <Button
                   leftIcon={<DeleteIcon />}
@@ -110,7 +111,7 @@ export default function Login() {
                   variant="solid"
                 ></Button>
               </Td>
-              <Td>0</Td>
+              
             </Tr>
           </Tbody>
         </Table>

@@ -44,9 +44,7 @@ export default function Home() {
             </Text>
           </Heading>
           <Text color={'gray.500'}>
-            Monetize your content by charging your most loyal readers and reward
-            them loyalty points. Give back to your loyal readers by granting
-            them access to your pre-releases and sneak-peaks.
+              With this app you can shorten your URLs, You can cooperate in github in this link.  <Link href="https://github.com/falconsoft3d/myslink.xyz">github.com/falconsoft3d/myslink.xyz</Link>
           </Text>
           <Stack
             direction={'column'}
@@ -95,9 +93,15 @@ export default function Home() {
             
             </Flex>  
             <Flex>  
-              <Text color={'gray.500'}>Marlon Falcon Hernández</Text>
-              <Text color={'gray.500'} ml={3}>www.marlonfalcon.com</Text>
-            </Flex> 
+              <Text color={'gray.500'} mr={2}>Marlon Falcon Hernández</Text>
+              <Link href="http://www.marlonfalcon.com"> 
+                  <a>www.marlonfalcon.com</a>  
+              </Link>
+            </Flex>
+
+            <Flex>
+              <Image src="/qr.png"  width="100" height="100" />
+            </Flex>  
           </Stack>
         </Stack>
       </Container>
