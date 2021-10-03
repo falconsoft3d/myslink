@@ -41,11 +41,27 @@ export default function Login() {
       direction="column"
     >
       <Flex>
+      
+
       <Link href="/">   
         <Button rounded={"full"} ml={3} px={6} mb={6}> Home </Button>
-      </Link>  
+      </Link> 
+
+
         
         <Button rounded={"full"} ml={3} px={6} mb={6}> Logout </Button>
+
+        <Button
+                colorScheme={'green'}
+                bg={'green.400'}
+                rounded={'full'}
+                ml={3}
+                px={6}
+                _hover={{
+                  bg: 'green.500',
+                }}>
+                Add URL
+              </Button>
       
       </Flex>
 
