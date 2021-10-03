@@ -1,6 +1,6 @@
 import React from 'react'
 import {Flex, Heading, Input, Button, useColorMode, useColorModeValue, ColorModeScript} from "@chakra-ui/react"
-
+import Link from "next/link";
 
 export default function Login() {
     const formBackground = useColorModeValue("gray.100", "gray.700");
@@ -11,6 +11,9 @@ export default function Login() {
               <Input placeholder="demo@demo.cl" variant="flushed" mb={3} type="email" />
               <Input placeholder="********" variant="flushed" mb={6} type="passsword" />
             <Button colorScheme="teal">Login</Button>
+            <Flex align="center" justifyContent="center" mt={2}>
+                <Link href="/">Home</Link>  /  <Link href="/register">Register</Link> 
+            </Flex>
         </Flex>
     </Flex>
     )

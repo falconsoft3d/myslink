@@ -3,36 +3,104 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import theme from "./theme"
 
+import {
+  Box,
+  Heading,
+  Container,
+  Text,
+  Button,
+  Stack,
+  Flex
+} from '@chakra-ui/react';
+import Link from "next/link";
+
+
 export default function Home() {
   return ( 
     <>
-    <div className={styles.container}>
-
       <Head>
         <title>myslink: url shortener</title>
         <meta name="description" content="url shortener" />
         <link rel="icon" href="/favicon.ico" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap"
+          rel="stylesheet"
+        />
       </Head>
 
-      <main className={styles.main}>
-        
-        <h1>Url Shortener</h1>
-      </main>
+      <Container maxW={'3xl'}>
+        <Stack
+          as={Box}
+          textAlign={'center'}
+          spacing={{ base: 8, md: 14 }}
+          py={{ base: 20, md: 36 }}>
+          <Heading
+            fontWeight={600}
+            fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
+            lineHeight={'110%'}>
+            Register your URL <br />
+            <Text as={'span'} color={'green.400'}>
+            myslink.xyz
+            </Text>
+          </Heading>
+          <Text color={'gray.500'}>
+            Monetize your content by charging your most loyal readers and reward
+            them loyalty points. Give back to your loyal readers by granting
+            them access to your pre-releases and sneak-peaks.
+          </Text>
+          <Stack
+            direction={'column'}
+            spacing={3}
+            align={'center'}
+            alignSelf={'center'}
+            position={'relative'}>
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-         
-          <span className={styles.logo}>
-            MARLON FALCON / falconsoft3d
-          </span>
+            <Flex>
+            <Link href="/login">  
+              <Button
+                colorScheme={'green'}
+                bg={'green.400'}
+                rounded={'full'}
+                px={6}
+                _hover={{
+                  bg: 'green.500',
+                }}>
+                Login
+              </Button>
+            </Link>
+            
+            <Link href="/register">
+            <Button
+              colorScheme={'green'}
+              bg={'green.200'}
+              rounded={'full'}
+              ml={3}
+              px={6}
+              _hover={{
+                bg: 'green.100',
+              }}>
+               Register
+            </Button>
+            </Link>
 
-        </a>
-      </footer>
-    </div>
+            <Link href="/url">
+            <Button 
+              rounded={'full'}
+              ml={3}
+              px={6}
+              >
+               Urls
+            </Button>
+            </Link>
+            
+            </Flex>  
+            <Flex>  
+              <Text color={'gray.500'}>Marlon Falcon Hernández</Text>
+              <Text color={'gray.500'} ml={3}>www.marlonfalcon.com</Text>
+            </Flex> 
+          </Stack>
+        </Stack>
+      </Container>
     </>
     )
-}
+  }
