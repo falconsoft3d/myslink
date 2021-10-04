@@ -32,9 +32,6 @@ export default async function handler(req, res) {
              const { password, ...others } = user._doc;
              res.status(200).json({success: true, ...others, accessToken});
 
-        //   const users = await User.find({}) /* find all the data in our database */
-        //   res.status(200).json({ success: true, data: users })
-
         } catch (error) {
           res.status(500).json({ success: false })
         }

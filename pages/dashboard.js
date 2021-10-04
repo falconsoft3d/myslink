@@ -39,6 +39,9 @@ export default function Dashboard() {
     return null;
   }
 
+  // console.log("1", auth)
+  // console.log("2", user)
+
   useEffect(() => {
     (async () => {
       const response = await getMyUrlFromApi(6);
@@ -197,6 +200,7 @@ export default function Dashboard() {
         </>
       )}
 
+      <Flex height="10" backgroundColor="gray.500" w="80%" align="center" justifyContent="center"> <strong>Links:</strong> {myUrls.length} </Flex>
       <Flex
         direction="column"
         backgroundColor={formBackground}
@@ -204,6 +208,7 @@ export default function Dashboard() {
         rouded={6}
         w="80%"
       >
+        
         <Table variant="simple">
           <Thead>
             <Tr>

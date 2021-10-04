@@ -58,7 +58,7 @@ export default function Home() {
 
             <Flex>
 
-            {!auth && !user && (
+            {!auth && (
               <>
             <Link href="/login">  
               <Button
@@ -92,7 +92,7 @@ export default function Home() {
            </>
             ) }
             
-        {auth && user && (
+        {auth  && (
             <Link href="/dashboard">
             <Button 
               rounded={'full'}

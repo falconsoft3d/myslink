@@ -13,12 +13,14 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter();
   
   useEffect(() => {
+    console.log("useEffect")
     const token = getToken();
     if(token) {
       setAuth( {
         token,
         idUser: jstDecode(token).id
       });
+      console.log("auth:", auth)
     } else {
       setAuth(null);
     }

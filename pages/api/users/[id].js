@@ -1,5 +1,6 @@
 import dbConnect from '../../../db/dbConnect';
 import User from '../../../models/User';
+import { verifyToken, verifyTokenAndAuthorization } from "../../../utils/verifyToken"
 
 export default async function handler(req, res) {
   const {
@@ -11,6 +12,7 @@ export default async function handler(req, res) {
 
   switch (method) {
     case 'GET' /* Get a model by its ID */:
+      verifyTokenAndAuthorization(req, res, id)
       try {
         const user = await User.findById(id)
         if (!user) {
@@ -18,7 +20,7 @@ export default async function handler(req, res) {
         }
         res.status(200).json({ success: true, data: user })
       } catch (error) {
-        res.status(400).json({ success: false })
+        res.status(400).json({ success: false, error:error  })
       }
       break
 
