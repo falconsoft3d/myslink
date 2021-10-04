@@ -8,6 +8,7 @@ import {
   Button,
   useColorMode,
   useColorModeValue,
+  IconButton,
 } from "@chakra-ui/react";
 import { DeleteIcon, MoonIcon } from "@chakra-ui/icons";
 import { Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
@@ -15,13 +16,28 @@ import { getMyUrlFromApi, deleteUrl, addUrl } from "../api/url";
 import { map } from "lodash";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import ChangePassword from "../components/ChangePassword";
+import { useRouter } from "next/router";
+import useAuth from "../hooks/useAuth";
 
 export default function Dashboard() {
+  const router = useRouter();
+  const { logout, auth, setReloadUser } = useAuth();
+  const [user, setUser] = useState(undefined);
+
   const toast = useToast();
   const [myUrls, setMyUrls] = useState([]);
   const [updateUrl, setUpdateUrl] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
+  const [showCPasssword, setShowCPasssword] = useState(false);
+
   const { toggleColorMode } = useColorMode();
+
+  // if (user === undefined) return null;
+  if (!auth && !user) {
+    router.push("/");
+    return null;
+  }
 
   useEffect(() => {
     (async () => {
@@ -34,6 +50,10 @@ export default function Dashboard() {
   const DeteleItem = async (id) => {
     await deleteUrl(id);
     setUpdateUrl(true);
+  };
+
+  const FunShowCPasssword = () => {
+    setShowCPasssword(!showCPasssword);
   };
 
   const FshowAdd = () => {
@@ -86,7 +106,7 @@ export default function Dashboard() {
           </Button>
         </Link>
 
-        <Button rounded={"full"} ml={3} px={6} mb={6}>
+        <Button rounded={"full"} ml={3} px={6} mb={6} onClick={() => logout()} >
           {" "}
           Logout{" "}
         </Button>
@@ -106,16 +126,26 @@ export default function Dashboard() {
         </Button>
 
         <Button
+          onClick={() => FunShowCPasssword()}
           rounded={"full"}
           ml={3}
           px={6}
           _hover={{
             bg: "green.500",
           }}
-          leftIcon={<MoonIcon />}
         >
-          Mode
+          CHANGE PASSWORD
         </Button>
+
+        <IconButton
+          ml={3}
+          px={6}
+          _hover={{
+            bg: "green.500",
+          }}
+          onClick={toggleColorMode}
+          icon={<MoonIcon />}
+        />
 
         <Button
           onClick={() => FshowAdd()}
@@ -130,7 +160,11 @@ export default function Dashboard() {
         >
           Add URL
         </Button>
+
       </Flex>
+    
+      {showCPasssword && <ChangePassword setShowCPasssword={setShowCPasssword}/> }
+
 
       {showAdd && (
         <>
@@ -210,7 +244,7 @@ export default function Dashboard() {
 
 function initialValues() {
   return {
-    getMyUrlFromApi: "",
+    url: "",
   };
 }
 

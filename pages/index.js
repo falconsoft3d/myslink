@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import theme from "./theme"
+import React, { useState, useEffect } from "react";
 
 import {
   Box,
@@ -13,9 +14,11 @@ import {
   Flex
 } from '@chakra-ui/react';
 import Link from "next/link";
-
+import useAuth from "../hooks/useAuth";
 
 export default function Home() {
+  const { logout, auth, setReloadUser } = useAuth();
+  const [user, setUser] = useState(undefined);
   return ( 
     <>
       <Head>
@@ -54,6 +57,9 @@ export default function Home() {
             position={'relative'}>
 
             <Flex>
+
+            {!auth && !user && (
+              <>
             <Link href="/login">  
               <Button
                 colorScheme={'green'}
@@ -67,20 +73,26 @@ export default function Home() {
               </Button>
             </Link>
             
-            <Link href="/register">
-            <Button
-              colorScheme={'green'}
-              bg={'green.200'}
-              rounded={'full'}
-              ml={3}
-              px={6}
-              _hover={{
-                bg: 'green.100',
-              }}>
-               Register
-            </Button>
-            </Link>
 
+            
+              <Link href="/register">
+                <Button
+                  colorScheme={'green'}
+                  bg={'green.200'}
+                  rounded={'full'}
+                  ml={3}
+                  px={6}
+                  _hover={{
+                    bg: 'green.100',
+                  }}>
+                  Register
+                </Button>
+              </Link>
+           
+           </>
+            ) }
+            
+        {auth && user && (
             <Link href="/dashboard">
             <Button 
               rounded={'full'}
@@ -89,7 +101,7 @@ export default function Home() {
               >
                Urls
             </Button>
-            </Link>
+            </Link> )}
             
             </Flex>  
             <Flex>  
