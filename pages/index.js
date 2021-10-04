@@ -81,7 +81,7 @@ export default function Home() {
             </Button>
             </Link>
 
-            <Link href="/url">
+            <Link href="/dashboard">
             <Button 
               rounded={'full'}
               ml={3}
