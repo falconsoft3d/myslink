@@ -1,5 +1,5 @@
 import '../styles/globals.css'
-import { ChakraProvider, extendTheme, useToast } from "@chakra-ui/react"
+import { ChakraProvider} from "@chakra-ui/react"
 import theme from "./theme"
 import AuthContext from '../context/AuthContext';
 import jstDecode from 'jwt-decode';
@@ -11,6 +11,7 @@ function MyApp({ Component, pageProps }) {
   const [auth, setAuth] = useState(undefined);
   const [reloadUser, setReloadUser] = useState(false);
   const router = useRouter();
+  
   
   useEffect(() => {
     const token = getToken();
@@ -25,7 +26,7 @@ function MyApp({ Component, pageProps }) {
     setReloadUser(false);
   }, [reloadUser])
 
-
+  
   const login = (token) => {
     setToken(token)
     setAuth( {
@@ -34,6 +35,7 @@ function MyApp({ Component, pageProps }) {
     });
   }
 
+  
   const logout = () => {
     if(auth) {
       removeToken();
@@ -42,6 +44,7 @@ function MyApp({ Component, pageProps }) {
     }
   }
 
+  
   const authData = useMemo(
     () => ({
         auth,
@@ -51,10 +54,11 @@ function MyApp({ Component, pageProps }) {
     }), [auth]
   )
 
-  if(auth === undefined) {
-    return null;
-  }
+  
+  if (auth === undefined) return null;
+  
 
+  
   return (
     <AuthContext.Provider value={authData}>
       <ChakraProvider theme={theme}>
