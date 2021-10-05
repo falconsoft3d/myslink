@@ -39,10 +39,6 @@ export default function Dashboard() {
     return null;
   }
 
-  const _logout = () => {
-    logout();
-  } 
-
   useEffect(() => {
     (async () => {
       const response = await getMyUrlFromApi(auth.idUser);
@@ -111,7 +107,7 @@ export default function Dashboard() {
           </Button>
         </Link>
 
-        <Button rounded={"full"} ml={3} px={6} mb={6} onClick={() => _logout()} >
+        <Button rounded={"full"} ml={3} px={6} mb={6} onClick={logout} >
           {" "}
           Logout{" "}
         </Button>
