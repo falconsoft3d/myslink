@@ -1,3 +1,5 @@
+import { authFetch } from "../utils/fetch";
+
 export async function getUrlFromApi(urls) {
     try {
       const url = `http://localhost:3000/api/url/${urls}`;
@@ -10,11 +12,11 @@ export async function getUrlFromApi(urls) {
     }
   }
 
-export async function getMyUrlFromApi() {
+export async function getMyUrlFromApi(idUser) {
     try {
-      const url = `http://localhost:3000/api/urls`;
-      const response = await fetch(url);
-      const result = await response.json();
+      const url = `http://localhost:3000/api/urls?iduser=${idUser}`;
+      const response = await authFetch(url);
+      const result = await response;
       return result.data;
     } catch (error) {
         console.log(error);
@@ -25,7 +27,7 @@ export async function getMyUrlFromApi() {
   export async function deleteUrl(id) {
     try {
       const url = `http://localhost:3000/api/urls/${id}`;
-      const response = await fetch(url,{
+      const response = await authFetch(url,{
         method: 'DELETE',
       });
       const result = await response.json();
@@ -46,8 +48,11 @@ export async function getMyUrlFromApi() {
         },
         body: JSON.stringify(formData),
       };
-      const response = await fetch(url, params);
-      const result = await response.json();
+      const response = await authFetch(url, params);
+      console.log("response: url.js ", response)
+      
+      const result = await response;
+      
       return result;
     } catch (error) {
       console.log(error);

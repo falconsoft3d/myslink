@@ -15,7 +15,7 @@ export async function authFetch(url, params, logout) {
         ...params,
         headers: {
           ...params?.headers,
-          Authorization: `Bearer ${token}`,
+          token: `Bearer ${token}`,
         },
       };
       try {

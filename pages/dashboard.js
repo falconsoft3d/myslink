@@ -39,12 +39,13 @@ export default function Dashboard() {
     return null;
   }
 
-  // console.log("1", auth)
-  // console.log("2", user)
+  const _logout = () => {
+    logout();
+  } 
 
   useEffect(() => {
     (async () => {
-      const response = await getMyUrlFromApi(6);
+      const response = await getMyUrlFromApi(auth.idUser);
       setMyUrls(response || []);
       setUpdateUrl(false);
     })();
@@ -75,10 +76,11 @@ export default function Dashboard() {
     initialValues: initialValues(),
     validationSchema: Yup.object(validationSchema()),
     onSubmit: async (formData, { resetForm }) => {
+      formData.userId = auth.idUser
       const response = await addUrl(formData);
-      if (!response) {
+      if (!response.success) {
         toast({
-          title: `Error at create url`,
+          title: "Error",
           status: "error",
           position: "top-left",
           isClosable: true,
@@ -109,7 +111,7 @@ export default function Dashboard() {
           </Button>
         </Link>
 
-        <Button rounded={"full"} ml={3} px={6} mb={6} onClick={() => logout()} >
+        <Button rounded={"full"} ml={3} px={6} mb={6} onClick={() => _logout()} >
           {" "}
           Logout{" "}
         </Button>
@@ -177,7 +179,7 @@ export default function Dashboard() {
             p={12}
             rouded={6}
             mb={2}
-            w="80%"
+            w="90%"
           >
             <Heading mb={6}>Add URL</Heading>
             <form onSubmit={formik.handleSubmit}>
@@ -200,19 +202,19 @@ export default function Dashboard() {
         </>
       )}
 
-      <Flex height="10" backgroundColor="gray.500" w="80%" align="center" justifyContent="center"> <strong>Links:</strong> {myUrls.length} </Flex>
+      <Flex height="10" backgroundColor="gray.500" w="90%" align="center" justifyContent="center"> <strong>Links:</strong> {myUrls.length} </Flex>
       <Flex
         direction="column"
         backgroundColor={formBackground}
         p={12}
         rouded={6}
-        w="80%"
+        w="90%"
       >
         
         <Table variant="simple">
           <Thead>
             <Tr>
-              <Th>URL</Th>
+              <Th max-width="120">URL</Th>
               <Th>Short URL</Th>
               <Th>CLICK</Th>
               <Th>DELETE</Th>
@@ -221,13 +223,15 @@ export default function Dashboard() {
           <Tbody>
             {map(myUrls, (item) => (
               <Tr key={item._id}>
-                <Td>
-                  <Link href={item.url}>{item.url}</Link>
+                <Td >
+                  <a href={item.url} >{item.url}</a>
                 </Td>
                 <Td>
-                  <Link href={`http://localhost:3000/${item.shortened}`}>
+                  <a href={`http://localhost:3000/${item.shortened}`} target='_blank'>
+        
                     {item.shortened}
-                  </Link>
+               
+                  </a>
                 </Td>
                 <Td>{item.clicks}</Td>
                 <Td>

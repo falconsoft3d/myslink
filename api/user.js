@@ -1,4 +1,6 @@
 export async function addUser(formData) {
+  console.log("formData:", formData)
+    const data = { email: formData.userEmail, password: formData.userPassword  }
     try {
       const url = `http://localhost:3000/api/users/`;
       const params = {
@@ -6,7 +8,7 @@ export async function addUser(formData) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(data),
       };
       const response = await fetch(url, params);
       const result = await response.json();

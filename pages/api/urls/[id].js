@@ -1,5 +1,6 @@
 import dbConnect from '../../../db/dbConnect';
 import Url from '../../../models/Url';
+import { verifyToken, verifyTokenAndAuthorization } from "../../../utils/verifyToken";
 
 export default async function handler(req, res) {
   const {
@@ -7,15 +8,15 @@ export default async function handler(req, res) {
     method,
   } = req
 
-  await dbConnect()
+  await dbConnect();
+  // Verify the Id user
+  const url = await Url.findById(id)
+  if (!url) return res.status(400).json({ success: false })
+  verifyTokenAndAuthorization(req, res, url.userId);
 
   switch (method) {
     case 'GET' /* Get a model by its ID */:
       try {
-        const url = await Url.findById(id)
-        if (!url) {
-          return res.status(400).json({ success: false })
-        }
         res.status(200).json({ success: true, data: url })
       } catch (error) {
         res.status(400).json({ success: false })

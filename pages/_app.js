@@ -13,14 +13,12 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter();
   
   useEffect(() => {
-    console.log("useEffect")
     const token = getToken();
     if(token) {
       setAuth( {
         token,
         idUser: jstDecode(token).id
       });
-      console.log("auth:", auth)
     } else {
       setAuth(null);
     }
@@ -38,10 +36,13 @@ function MyApp({ Component, pageProps }) {
 
   const logout = () => {
     if(auth) {
+      console.log("1")
       removeToken();
       setAuth(null);
       //toast.success(`Adios !!`);
+      console.log("2")
       router.push('/');
+      console.log("3")
     }
   }
 

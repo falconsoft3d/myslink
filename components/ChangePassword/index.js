@@ -49,7 +49,7 @@ export default function index({setShowCPasssword}) {
             p={12}
             rouded={6}
             mb={2}
-            w="80%"
+            w="90%"
             align="center" justifyContent="center"
             
           >
