@@ -105,6 +105,8 @@ export default function Home() {
               rounded={'full'}
               ml={3}
               px={6}
+              colorScheme={"green"}
+              bg={"green.400"}
               >
                Urls
             </Button>

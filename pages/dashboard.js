@@ -13,6 +13,7 @@ import {
 import { DeleteIcon, MoonIcon } from "@chakra-ui/icons";
 import { Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
 import { getMyUrlFromApi, deleteUrl, addUrl } from "../api/url";
+import { myUser } from "../api/user";
 import { map } from "lodash";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -33,8 +34,8 @@ export default function Dashboard() {
 
   const { toggleColorMode } = useColorMode();
 
-  // if (user === undefined) return null;
-  if (!auth && !user) {
+  
+  if (!auth) {
     router.push("/");
     return null;
   }
