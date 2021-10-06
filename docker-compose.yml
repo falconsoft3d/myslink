@@ -12,7 +12,7 @@ services:
       volumes:
             - .:/usr/src/app
   mongo:
-      container_name : mymongomyslink
+      container_name : mymongomyslink2
       image: mongo
       ports:
             - "27017:27017"
