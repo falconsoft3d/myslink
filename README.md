@@ -14,6 +14,28 @@ Marlon Falcón Hernández | España | Valencia
 ![Alt text](https://github.com/falconsoft3d/myslink.xyz/blob/main/public/myslink5.png?raw=true "myslink5")
 
 ```
-yarn
-yarn dev
+$ docker build -t myslink .
+$ docker run -p 3000:3000 myslink
 ```
+```
+$ docker exec -it myslink  bash
+```
+```
+$ docker-compose build
+$ docker-compose up
+$ docker-compose stop
+```
+
+```
+$ docker build -t dev .
+$ docker build -t production -f Dockerfile.production .
+```
+
+```
+$ docker-compose build
+$ docker-compose up
+$ docker-compose stop
+```
+
+
+
