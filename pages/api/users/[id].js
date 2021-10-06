@@ -1,6 +1,7 @@
 import dbConnect from '../../../db/dbConnect';
 import User from '../../../models/User';
-import { verifyToken, verifyTokenAndAuthorization } from "../../../utils/verifyToken";
+import { verifyToken } from "../../../utils/verifyToken";
+const CryptoJS = require("crypto-js");
 
 export default async function handler(req, res) {
   const {
@@ -26,6 +27,12 @@ export default async function handler(req, res) {
 
     case 'PUT' /* Edit a model by its ID */:
       try {
+        if (req.body.password) {
+          req.body.password = CryptoJS.AES.encrypt(
+            req.body.password,
+            process.env.PASS_SEC
+          ).toString()
+        }
         const user = await User.findByIdAndUpdate(id, req.body, {
           new: true,
           runValidators: true,
@@ -35,6 +42,7 @@ export default async function handler(req, res) {
         }
         res.status(200).json({ success: true, data: user })
       } catch (error) {
+        console.log(error)
         res.status(400).json({ success: false })
       }
       break

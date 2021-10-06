@@ -75,6 +75,7 @@ export default function Register() {
             onChange={formik.handleChange}
             value={formik.values.userEmail}
             name="userEmail"
+            isInvalid={formik.errors.userEmail}
           />
           <Input
             placeholder="********"
@@ -83,6 +84,7 @@ export default function Register() {
             type="password"
             onChange={formik.handleChange}
             value={formik.values.userPassword}
+            isInvalid={formik.errors.userPassword}
             name="userPassword"
           />
           <Input
@@ -92,6 +94,7 @@ export default function Register() {
             type="password"
             onChange={formik.handleChange}
             value={formik.values.userRepeatPassword}
+            isInvalid={formik.errors.userRepeatPassword}
             name="userRepeatPassword"
           />
           <Button colorScheme="teal" type="submit">
@@ -118,7 +121,7 @@ function initialValues() {
 function validationSchema() {
   return {
     userEmail: Yup.string().required(true),
-    userPassword: Yup.string().required(true),
-    userRepeatPassword: Yup.string().required(true),
+    userPassword: Yup.string().required(true).min(8),
+    userRepeatPassword: Yup.string().required(true).min(8),
   };
 }

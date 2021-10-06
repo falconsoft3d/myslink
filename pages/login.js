@@ -63,6 +63,7 @@ export default function Login() {
                     type="email"
                     onChange={formik.handleChange}
                     value={formik.values.email}
+                    isInvalid={formik.errors.email}
                     name="email"
                     />
                 <Input placeholder="********" 
@@ -70,7 +71,8 @@ export default function Login() {
                        mb={6} 
                        type="password"
                        onChange={formik.handleChange}
-                      value={formik.values.password}
+                       value={formik.values.password}
+                       isInvalid={formik.errors.password}
                       name="password"
                        />
               <Button colorScheme="teal" type="submit">Login</Button>

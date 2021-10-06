@@ -8,12 +8,15 @@ import {
   Button,
   useColorMode,
   useColorModeValue,
+  Link as LinkChakara,
   IconButton,
+  Spinner,
+  Tooltip,
+  CustomCard
 } from "@chakra-ui/react";
 import { DeleteIcon, MoonIcon } from "@chakra-ui/icons";
 import { Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
 import { getMyUrlFromApi, deleteUrl, addUrl } from "../api/url";
-import { myUser } from "../api/user";
 import { map } from "lodash";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -174,16 +177,19 @@ export default function Dashboard() {
             <Heading mb={6}>Add URL</Heading>
             <form onSubmit={formik.handleSubmit}>
               <Input
-                placeholder="https://www.facebook.com/"
+                placeholder="https://www.marlonfalcon.com/"
                 variant="flushed"
                 mb={3}
                 type="text"
-                required
+                // required
                 onChange={formik.handleChange}
-                // error={formik.errors.url}
                 value={formik.values.url}
+                isInvalid={formik.errors.url}
                 name="url"
+
               />
+
+
               <Button colorScheme="teal" type="submit">
                 Save
               </Button>
@@ -201,10 +207,18 @@ export default function Dashboard() {
         w="90%"
       >
         
+        {!myUrls ? <Spinner
+              thickness="4px"
+              speed="0.65s"
+              emptyColor="gray.200"
+              color="blue.500"
+              size="xl"
+            /> : null}
+
         <Table variant="simple">
           <Thead>
             <Tr>
-              <Th max-width="120">URL</Th>
+              <Th width={10} >URL</Th>
               <Th>Short URL</Th>
               <Th>CLICK</Th>
               <Th>DELETE</Th>
@@ -213,15 +227,19 @@ export default function Dashboard() {
           <Tbody>
             {map(myUrls, (item) => (
               <Tr key={item._id}>
-                <Td >
-                  <a href={item.url} >{item.url}</a>
+                <Td width={10}  className="td200">
+                  <LinkChakara href={item.url}  color="teal.500" className="linkm">{item.url}</LinkChakara>
                 </Td>
                 <Td>
-                  <a href={`http://localhost:3000/${item.shortened}`} target='_blank'>
+             
+                  <LinkChakara color="teal.500" 
+                  
+                  onClick={() => {navigator.clipboard.writeText( process.env.URL_SERVER + "/" + item.shortened  )}}
+                   className="linkm" target='_blank'>
         
                     {item.shortened}
                
-                  </a>
+                  </LinkChakara>
                 </Td>
                 <Td>{item.clicks}</Td>
                 <Td>
@@ -236,6 +254,13 @@ export default function Dashboard() {
             ))}
           </Tbody>
         </Table>
+
+        
+                
+      </Flex>
+      
+      <Flex mt={10}>
+        <LinkChakara href="http://www.myslink.xyz" color="teal.500" className="linkm">www.myslink.xyz</LinkChakara>
       </Flex>
     </Flex>
   );
@@ -249,6 +274,6 @@ function initialValues() {
 
 function validationSchema() {
   return {
-    url: Yup.string().required(true),
+    url: Yup.string().required(true).url(),
   };
 }

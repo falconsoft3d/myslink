@@ -1,6 +1,5 @@
 import dbConnect from '../../../db/dbConnect';
 import User from '../../../models/User';
-const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
 import { verifyToken } from "../../../utils/verifyToken";
 

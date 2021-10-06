@@ -1,6 +1,6 @@
 import dbConnect from '../../../db/dbConnect';
 import Url from '../../../models/Url';
-import { verifyToken, verifyTokenAndAuthorization } from "../../../utils/verifyToken";
+import { verifyTokenAndAuthorization } from "../../../utils/verifyToken";
 
 export default async function handler(req, res) {
   const {

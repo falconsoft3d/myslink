@@ -2,7 +2,7 @@ import { authFetch } from "../utils/fetch";
 
 export async function getUrlFromApi(urls) {
     try {
-      const url = `http://localhost:3000/api/url/${urls}`;
+      const url = `${process.env.URL_SERVER}/api/url/${urls}`;
       const response = await fetch(url);
       const result = await response.json();
       return result;
@@ -14,7 +14,8 @@ export async function getUrlFromApi(urls) {
 
 export async function getMyUrlFromApi(idUser) {
     try {
-      const url = `http://localhost:3000/api/urls?iduser=${idUser}`;
+      const url = `${process.env.URL_SERVER}/api/urls?iduser=${idUser}`;
+      console.log(url)
       const response = await authFetch(url);
       const result = await response;
       return result.data;
@@ -26,7 +27,7 @@ export async function getMyUrlFromApi(idUser) {
 
   export async function deleteUrl(id) {
     try {
-      const url = `http://localhost:3000/api/urls/${id}`;
+      const url = `${process.env.URL_SERVER}/api/urls/${id}`;
       const response = await authFetch(url,{
         method: 'DELETE',
       });
@@ -40,7 +41,7 @@ export async function getMyUrlFromApi(idUser) {
 
   export async function addUrl(formData) {
     try {
-      const url = `http://localhost:3000/api/urls/`;
+      const url = `${process.env.URL_SERVER}/api/urls/`;
       const params = {
         method: "POST",
         headers: {
@@ -49,10 +50,7 @@ export async function getMyUrlFromApi(idUser) {
         body: JSON.stringify(formData),
       };
       const response = await authFetch(url, params);
-      console.log("response: url.js ", response)
-      
       const result = await response;
-      
       return result;
     } catch (error) {
       console.log(error);

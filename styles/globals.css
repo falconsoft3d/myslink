@@ -14,3 +14,16 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.td200 {
+  max-width: 450px;
+  border: solid 2px gray;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.linkm :hover {
+   color: #0070f3;
+}
+
