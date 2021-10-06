@@ -42,7 +42,7 @@ export default function Dashboard() {
       setMyUrls(response);
       setUpdateUrl(false);
     })();
-  }, [updateUrl, auth.idUser]);
+  }, [updateUrl, auth]);
 
   const formBackground = useColorModeValue("gray.100", "gray.700");
 
