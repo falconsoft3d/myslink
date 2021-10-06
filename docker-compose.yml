@@ -2,19 +2,22 @@ version: "3"
 
 services:
   web:
-      container_name : myslink
-      restart: always
-      build: .
-      ports: 
-            - "3000:3000"
-      links:
-            - mongo
-      volumes:
-            - .:/usr/src/app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: web
+    restart: always
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
   mongo:
-      container_name : mymongomyslink2
-      image: mongo
-      ports:
-            - "27017:27017"
-      logging:
-            driver: none
+    container_name: mongo
+    image: mongo
+    restart: always
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
