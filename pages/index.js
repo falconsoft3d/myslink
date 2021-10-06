@@ -1,8 +1,6 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import theme from "./theme"
-import React, { useState, useEffect } from "react";
+import Head from 'next/head';
+import Image from 'next/image';
+import React, { useState } from "react";
 
 import {
   Box,
@@ -63,7 +61,7 @@ export default function Home() {
 
             {!auth && (
               <>
-            <Link href="/login">  
+            <Link href="/login" passHref>  
               <Button
                 colorScheme={'green'}
                 bg={'green.400'}
@@ -81,7 +79,7 @@ export default function Home() {
             
 
             
-              <Link href="/register">
+              <Link href="/register" passHref>
                 <Button
                   colorScheme={'green'}
                   bg={'green.200'}
@@ -100,7 +98,7 @@ export default function Home() {
             
         {auth  && (
           <>
-            <Link href="/dashboard">
+            <Link href="/dashboard" passHref>
             <Button 
               rounded={'full'}
               ml={3}
@@ -123,13 +121,13 @@ export default function Home() {
             </Flex>  
             <Flex>  
               <Text color={'gray.500'} mr={2}>Marlon Falcon Hernández</Text>
-              <Link href="http://www.marlonfalcon.com"> 
+              <Link href="http://www.marlonfalcon.com" passHref> 
                   <a>www.marlonfalcon.com</a>  
               </Link>
             </Flex>
 
             <Flex>
-              <Image src="/qr.png"  width="100" height="100" />
+              <Image src="/qr.png"  width="100" height="100" alt="qr"/>
             </Flex>  
           </Stack>
         </Stack>

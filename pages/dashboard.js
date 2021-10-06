@@ -34,43 +34,18 @@ export default function Dashboard() {
   const [updateUrl, setUpdateUrl] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
   const [showCPasssword, setShowCPasssword] = useState(false);
-
   const { toggleColorMode } = useColorMode();
-
-  
-  if (!auth) {
-    router.push("/");
-    return null;
-  }
 
   useEffect(() => {
     (async () => {
       const response = await getMyUrlFromApi(auth.idUser);
-      setMyUrls(response || []);
+      setMyUrls(response);
       setUpdateUrl(false);
     })();
-  }, [updateUrl]);
-
-  const DeteleItem = async (id) => {
-    await deleteUrl(id);
-    setUpdateUrl(true);
-  };
-
-  const FunShowCPasssword = () => {
-    setShowCPasssword(!showCPasssword);
-  };
-
-  const FshowAdd = () => {
-    setShowAdd(!showAdd);
-  };
-
-  const FUpdate = () => {
-    setUpdateUrl(true);
-  };
-
-
+  }, [updateUrl,auth.idUser]);
 
   const formBackground = useColorModeValue("gray.100", "gray.700");
+
 
   const formik = useFormik({
     initialValues: initialValues(),
@@ -101,10 +76,41 @@ export default function Dashboard() {
     },
   });
 
+
+  if (!auth) {
+    router.push("/");
+    return null;
+  }
+
+  
+
+  const DeteleItem = async (id) => {
+    await deleteUrl(id);
+    setUpdateUrl(true);
+  };
+
+  const FunShowCPasssword = () => {
+    setShowCPasssword(!showCPasssword);
+  };
+
+  const FshowAdd = () => {
+    setShowAdd(!showAdd);
+  };
+
+  const FUpdate = () => {
+    setUpdateUrl(true);
+  };
+
+
+
+  
+
+  
+
   return (
     <Flex align="center" justifyContent="center" direction="column" mt={10}>
       <Flex>
-        <Link href="/">
+        <Link href="/" passHref>
           <Button rounded={"full"} ml={3} px={6} mb={6}>
             {" "}
             Home{" "}

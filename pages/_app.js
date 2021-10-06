@@ -1,6 +1,6 @@
 import '../styles/globals.css'
 import { ChakraProvider} from "@chakra-ui/react"
-import theme from "./theme"
+import theme from "../utils/theme"
 import AuthContext from '../context/AuthContext';
 import jstDecode from 'jwt-decode';
 import { setToken, getToken, removeToken } from "../api/token";
@@ -51,7 +51,7 @@ function MyApp({ Component, pageProps }) {
         login,
         logout,
         setReloadUser,
-    }), [auth]
+    }), [auth, logout]
   )
 
   
