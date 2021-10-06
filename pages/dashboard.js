@@ -36,6 +36,12 @@ export default function Dashboard() {
   const [showCPasssword, setShowCPasssword] = useState(false);
   const { toggleColorMode } = useColorMode();
 
+
+  if (!auth) {
+    router.push("/");
+    return null;
+  }
+  
   useEffect(() => {
     (async () => {
       const response = await getMyUrlFromApi(auth.idUser);
@@ -77,11 +83,7 @@ export default function Dashboard() {
   });
 
 
-  if (!auth) {
-    router.push("/");
-    return null;
-  }
-
+  
   
 
   const DeteleItem = async (id) => {

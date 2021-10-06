@@ -2,7 +2,7 @@ import dbConnect from '../../../db/dbConnect';
 import User from '../../../models/User';
 const jwt = require("jsonwebtoken");
 import { verifyToken } from "../../../utils/verifyToken";
-
+const CryptoJS = require("crypto-js");
 
 export default async function handler(req, res) {
     const { method } = req
