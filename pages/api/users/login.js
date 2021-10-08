@@ -6,10 +6,16 @@ const jwt = require("jsonwebtoken");
 export default async function handler(req, res) {
     const { method } = req
     await dbConnect()
+
+    if (!dbConnect) {
+      res.status(400).json({ success: false, error: "db: undefined" })
+    }
     switch (method) {
       case 'POST':
         try {
-            const user = await User.findOne({ email: req.body.email });            
+            
+            const user = await User.findOne({ email: req.body.email });
+
             !user && res.status(401).json({ success: false, error: "Error 1: Wrong credentials!" })
             const hashedPassword = CryptoJS.AES.decrypt(
                 user.password,

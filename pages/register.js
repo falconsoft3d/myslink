@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import {
   Flex,
@@ -17,11 +17,14 @@ export default function Register() {
   const formBackground = useColorModeValue("gray.100", "gray.700");
   const toast = useToast();
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+
 
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: Yup.object(validationSchema()),
     onSubmit: async (formData, { resetForm }) => {
+      setIsLoading(true);
       if (formData.userPassword !== formData.userRepeatPassword) {
         toast({
           title: `The password are not the same`,
@@ -41,18 +44,11 @@ export default function Register() {
             duration: 1000,
           });
         } else {
-          toast({
-            title: `Has been created successfully`,
-            status: "success",
-            position: "top-left",
-            isClosable: true,
-            duration: 1000,
-          });
-          router.push("/dashboard");
+          router.push("/login");
         }
       }
-
       resetForm({ values: "" });
+      setIsLoading(false);
     },
   });
 

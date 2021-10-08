@@ -16,6 +16,14 @@ RUN npm install --production
 # Copy all files
 COPY ./ ./
 
+# ENV
+ENV MONGODB_URI "mongodb://mongo:27017/myslink"
+ENV URL_SERVER  "http://localhost"
+ENV PASS_SEC = PASSWORD1000
+ENV JWT_SEC = OTHER_PASS
+ENV TOKEN = TOKEN
+
+
 # Build app
 RUN npm run build
 

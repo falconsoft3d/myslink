@@ -271,11 +271,10 @@ export default function Dashboard() {
 
       <Flex mt={10}>
         <LinkChakara
-          href="http://www.myslink.xyz"
+          href={process.env.NAME_APP}
           color="teal.500"
           className="linkm"
-        >
-          www.myslink.xyz
+        > { process.env.NAME_APP ? process.env.NAME_APP : "ERROR ENV"}
         </LinkChakara>
       </Flex>
     </Flex>

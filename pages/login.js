@@ -19,15 +19,15 @@ export default function Login() {
   const toast = useToast();
   const router = useRouter();
   const { login } = useAuth();
-
+  const [isLoading, setIsLoading] = useState(false);
 
 
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: Yup.object(validationSchema()),
     onSubmit: async (formData, { resetForm }) => {
+        setIsLoading(true);
         const response = await loginApi(formData);
-        console.log(response)
         if (!response.success) {
           toast({
             title: `${response.error}`,
@@ -37,17 +37,11 @@ export default function Login() {
             duration: 1000,
           });
         } else {
-          login(response.accessToken)
-          toast({
-            title: `Login OK`,
-            status: "success",
-            position: "top-left",
-            isClosable: true,
-            duration: 1000,
-          });
-          router.push("/dashboard"); accessToken
+          login(response.accessToken);
+          router.push("/dashboard");
         }
       resetForm({ values: "" });
+      setIsLoading(false);
     },
   });
 
@@ -75,7 +69,7 @@ export default function Login() {
                        isInvalid={formik.errors.password}
                       name="password"
                        />
-              <Button colorScheme="teal" type="submit">Login</Button>
+              <Button isLoading={isLoading} colorScheme="teal" type="submit">Login</Button>
               <Flex align="center" justifyContent="center" mt={2}>
                   <Link href="/">Home</Link>  /  <Link href="/register">Register</Link> 
               </Flex>

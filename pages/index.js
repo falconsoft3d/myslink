@@ -41,7 +41,7 @@ export default function Home() {
             lineHeight={'110%'}>
             Register your URL <br />
             <Text as={'span'} color={'green.400'}>
-            myslink.xyz
+            { process.env.NAME_APP ? process.env.NAME_APP : "ERROR ENV"}
             </Text>
           </Heading>
           <Text color={'gray.500'}>
@@ -92,6 +92,8 @@ export default function Home() {
                   Register
                 </Button>
               </Link>
+
+
            
            </>
             ) }
