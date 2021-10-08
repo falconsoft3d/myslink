@@ -1,23 +1,36 @@
-version: "3"
-
+version: '2'
 services:
-  web:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: web
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./certs:/etc/nginx/certs:ro
+      - /etc/nginx/vhost.d
+      - /usr/share/nginx/html
+  
+  letsencrypt:
+    image : jrcs/letsencrypt-nginx-proxy-companion
     restart: always
     volumes:
-      - ./:/usr/src/app
-    ports:
-      - "3000:3000"
-    depends_on:
-      - mongo
-  mongo:
-    container_name: mongo
-    image: mongo
-    restart: always
+      - ./certs:/etc/nginx/certs:rw
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    volumes_from:
+      - nginx-proxy:rw
+  
+  nginx: 
+    build: ./nginx
+    expose:
+      - "80"
     volumes:
-      - ./data:/data/db
-    ports:
-      - "27017:27017"
+      - .:/usr/share/nginx/html:ro
+    environment:
+      - VIRTUAL_HOST=docker.marlonfalcon.com,www.docker.marlonfalcon.com
+      - LETSENCRYPT_HOST=docker.marlonfalcon.com,www.docker.marlonfalcon.com
+      - LETSENCRYPT_EMAIL=youremail@demo.com
+  
+  nextjs: 
+    build: ./

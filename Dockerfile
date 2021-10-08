@@ -1,26 +1,30 @@
-FROM node:12
+FROM node:alpine
 
-# Create app directory
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+# Set working directory
+WORKDIR /usr/app
 
-# Installing dependencies
-COPY package*.json .
-RUN yarn install
+# Install PM2 globally
+RUN npm install --global pm2
 
+# Copy "package.json" and "package-lock.json" before other files
+# Utilise Docker cache to save re-installing dependencies if unchanged
+COPY ./package*.json ./
 
-# ENV
-ENV MONGODB_URI "mongodb://mongo:27017/myslink"
-ENV URL_SERVER  "http://localhost:3000"
-ENV PASS_SEC = PASSWORD1000
-ENV JWT_SEC = OTHER_PASS
-ENV TOKEN = TOKEN
+# Install dependencies
+RUN npm install --production
 
-COPY . .
+# Copy all files
+COPY ./ ./
 
-# Building app
-RUN yarn build
+# Build app
+RUN npm run build
+
+# Expose the listening port
 EXPOSE 3000
 
-# Running the app
-CMD ["yarn", "dev"]
+# Run container as non-root (unprivileged) user
+# The "node" user is provided in the Node.js Alpine base image
+USER node
+
+# Launch app with PM2
+CMD [ "pm2-runtime", "start", "npm", "--", "start" ]
