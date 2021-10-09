@@ -18,7 +18,7 @@ COPY ./ ./
 
 # ENV
 ENV MONGODB_URI "mongodb://mongo:27017/myslink"
-ENV URL_SERVER  "http://myslink.xyz"
+ENV URL_SERVER  "https://myslink.xyz"
 ENV PASS_SEC = PASSWORD1000
 ENV JWT_SEC = OTHER_PASS
 ENV TOKEN = TOKEN
